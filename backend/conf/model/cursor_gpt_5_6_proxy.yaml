@@ -1,8 +1,8 @@
 id: 69013
-name: Cursor-GPT-5.6-Proxy
+name: Cursor-GPT-5.6-1M-Proxy
 description:
-    zh: 本机 Cursor 代理 GPT-5.6 / Codex 线（Phase 1，无 Function Call）
-    en: Local Cursor proxy for GPT-5.6 (Phase 1, no function call)
+    zh: 本机 Cursor 代理 GPT-5.6 Sol 1M Medium（Phase 1，无 Function Call）
+    en: Local Cursor proxy for GPT-5.6 Sol 1M Medium (Phase 1, no function call)
 meta:
     protocol: openai
     conn_config:
@@ -10,6 +10,6 @@ meta:
         base_url: "http://host.docker.internal:8787/v1"
         api_key: "local-proxy"
         timeout: 180s
-        model: "gpt-5.6-sol-high"
+        model: "gpt-5.6-sol-medium"
         temperature: 0.7
         max_tokens: 4096
