@@ -402,7 +402,6 @@ services:
     volumes:
       - .env:/app/.env
       - ../backend/conf:/app/resources/conf
-      - ./.local/opencoze:/app/opencoze:ro
       # - ../backend/static:/app/resources/static
     depends_on:
       mysql:

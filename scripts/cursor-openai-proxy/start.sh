@@ -3,19 +3,39 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 cd "$ROOT"
 
-if [ -f /root/.bashrc ]; then
-  # Non-interactive shells skip bashrc; load it so CURSOR_API_KEY is visible.
-  # /etc/bashrc reads $BASHRCSOURCED under set -u-unsafe tests; relax flags while sourcing.
-  set +eu
-  set -a
-  # shellcheck disable=SC1091
-  . /root/.bashrc
-  set +a
-  set -eu
-fi
+# Pull CURSOR_API_KEY from common shell/env files without sourcing zsh into bash.
+load_cursor_api_key() {
+  if [ -n "${CURSOR_API_KEY:-}" ]; then
+    return 0
+  fi
+  local f line val
+  for f in \
+    "$ROOT/.env" \
+    "$ROOT/../../docker/.env" \
+    "${HOME:-}/.zshrc" \
+    "${HOME:-}/.zprofile" \
+    "${HOME:-}/.bashrc" \
+    "${HOME:-}/.bash_profile" \
+    "${HOME:-}/.profile"; do
+    [ -f "$f" ] || continue
+    line="$(grep -E '^[[:space:]]*(export[[:space:]]+)?CURSOR_API_KEY=' "$f" | tail -n 1 || true)"
+    [ -n "$line" ] || continue
+    val="${line#*=}"
+    val="${val%\"}"
+    val="${val#\"}"
+    val="${val%\'}"
+    val="${val#\'}"
+    if [ -n "$val" ]; then
+      export CURSOR_API_KEY="$val"
+      return 0
+    fi
+  done
+}
+
+load_cursor_api_key
 
 if [ -z "${CURSOR_API_KEY:-}" ]; then
-  echo "CURSOR_API_KEY is empty. Add it to ~/.bashrc or export it first." >&2
+  echo "CURSOR_API_KEY is empty. Add it to ~/.zshrc / ~/.bashrc or export it first." >&2
   exit 1
 fi
 
