@@ -886,6 +886,230 @@
                     }
                 ]
             },
+            "composer-2.5": {
+                "display_info": {
+                    "name": "Cursor Composer 2.5 (local proxy)",
+                    "description": {},
+                    "output_tokens": 4096,
+                    "max_tokens": 128000
+                },
+                "capability": {
+                    "cot_display": false,
+                    "function_call": false,
+                    "image_understanding": false,
+                    "video_understanding": false,
+                    "audio_understanding": false,
+                    "support_multi_modal": false,
+                    "prefill_resp": false
+                },
+                "parameters": [
+                    {
+                        "name": "temperature",
+                        "label": "Temperature",
+                        "desc": "**Temperature**:\n\n- When you increase this value, the model outputs more diverse and innovative content; when you decrease it, the model outputs less diverse content that strictly follows the given instructions.\n- It is recommended not to adjust this value with \"Top p\" at the same time.",
+                        "type": 1,
+                        "min": "0",
+                        "max": "1",
+                        "precision": 1,
+                        "default_val": {
+                            "default_val": "1",
+                            "creative": "1",
+                            "balance": "0.8",
+                            "precise": "0.3"
+                        },
+                        "options": [],
+                        "param_class": {
+                            "class_id": 1,
+                            "label": "Generation diversity"
+                        }
+                    },
+                    {
+                        "name": "max_tokens",
+                        "label": "Response max length",
+                        "desc": "You can specify the maximum length of the tokens output through this value. Typically, 100 tokens are approximately equal to 150 Chinese characters.",
+                        "type": 2,
+                        "min": "1",
+                        "max": "4096",
+                        "precision": 0,
+                        "default_val": {
+                            "default_val": "4096"
+                        },
+                        "options": [],
+                        "param_class": {
+                            "class_id": 2,
+                            "label": "Input and output settings"
+                        }
+                    }
+                ]
+            },
+            "cursor-grok-4.6-high": {
+                "display_info": {
+                    "name": "Cursor Grok 4.6 (local proxy)",
+                    "description": {},
+                    "output_tokens": 4096,
+                    "max_tokens": 128000
+                },
+                "capability": {
+                    "cot_display": false,
+                    "function_call": false,
+                    "image_understanding": false,
+                    "video_understanding": false,
+                    "audio_understanding": false,
+                    "support_multi_modal": false,
+                    "prefill_resp": false
+                },
+                "parameters": [
+                    {
+                        "name": "temperature",
+                        "label": "Temperature",
+                        "desc": "**Temperature**:\n\n- When you increase this value, the model outputs more diverse and innovative content; when you decrease it, the model outputs less diverse content that strictly follows the given instructions.\n- It is recommended not to adjust this value with \"Top p\" at the same time.",
+                        "type": 1,
+                        "min": "0",
+                        "max": "1",
+                        "precision": 1,
+                        "default_val": {
+                            "default_val": "1",
+                            "creative": "1",
+                            "balance": "0.8",
+                            "precise": "0.3"
+                        },
+                        "options": [],
+                        "param_class": {
+                            "class_id": 1,
+                            "label": "Generation diversity"
+                        }
+                    },
+                    {
+                        "name": "max_tokens",
+                        "label": "Response max length",
+                        "desc": "You can specify the maximum length of the tokens output through this value. Typically, 100 tokens are approximately equal to 150 Chinese characters.",
+                        "type": 2,
+                        "min": "1",
+                        "max": "4096",
+                        "precision": 0,
+                        "default_val": {
+                            "default_val": "4096"
+                        },
+                        "options": [],
+                        "param_class": {
+                            "class_id": 2,
+                            "label": "Input and output settings"
+                        }
+                    }
+                ]
+            },
+            "gpt-5.6-sol-high": {
+                "display_info": {
+                    "name": "Cursor GPT-5.6 (local proxy)",
+                    "description": {},
+                    "output_tokens": 4096,
+                    "max_tokens": 128000
+                },
+                "capability": {
+                    "cot_display": false,
+                    "function_call": false,
+                    "image_understanding": false,
+                    "video_understanding": false,
+                    "audio_understanding": false,
+                    "support_multi_modal": false,
+                    "prefill_resp": false
+                },
+                "parameters": [
+                    {
+                        "name": "temperature",
+                        "label": "Temperature",
+                        "desc": "**Temperature**:\n\n- When you increase this value, the model outputs more diverse and innovative content; when you decrease it, the model outputs less diverse content that strictly follows the given instructions.\n- It is recommended not to adjust this value with \"Top p\" at the same time.",
+                        "type": 1,
+                        "min": "0",
+                        "max": "1",
+                        "precision": 1,
+                        "default_val": {
+                            "default_val": "1",
+                            "creative": "1",
+                            "balance": "0.8",
+                            "precise": "0.3"
+                        },
+                        "options": [],
+                        "param_class": {
+                            "class_id": 1,
+                            "label": "Generation diversity"
+                        }
+                    },
+                    {
+                        "name": "max_tokens",
+                        "label": "Response max length",
+                        "desc": "You can specify the maximum length of the tokens output through this value. Typically, 100 tokens are approximately equal to 150 Chinese characters.",
+                        "type": 2,
+                        "min": "1",
+                        "max": "4096",
+                        "precision": 0,
+                        "default_val": {
+                            "default_val": "4096"
+                        },
+                        "options": [],
+                        "param_class": {
+                            "class_id": 2,
+                            "label": "Input and output settings"
+                        }
+                    }
+                ]
+            },
+            "claude-opus-5-thinking-high": {
+                "display_info": {
+                    "name": "Cursor Claude Opus 5 (local proxy)",
+                    "description": {},
+                    "output_tokens": 4096,
+                    "max_tokens": 128000
+                },
+                "capability": {
+                    "cot_display": true,
+                    "function_call": false,
+                    "image_understanding": false,
+                    "video_understanding": false,
+                    "audio_understanding": false,
+                    "support_multi_modal": false,
+                    "prefill_resp": false
+                },
+                "parameters": [
+                    {
+                        "name": "temperature",
+                        "label": "Temperature",
+                        "desc": "**Temperature**:\n\n- When you increase this value, the model outputs more diverse and innovative content; when you decrease it, the model outputs less diverse content that strictly follows the given instructions.\n- It is recommended not to adjust this value with \"Top p\" at the same time.",
+                        "type": 1,
+                        "min": "0",
+                        "max": "1",
+                        "precision": 1,
+                        "default_val": {
+                            "default_val": "1",
+                            "creative": "1",
+                            "balance": "0.8",
+                            "precise": "0.3"
+                        },
+                        "options": [],
+                        "param_class": {
+                            "class_id": 1,
+                            "label": "Generation diversity"
+                        }
+                    },
+                    {
+                        "name": "max_tokens",
+                        "label": "Response max length",
+                        "desc": "You can specify the maximum length of the tokens output through this value. Typically, 100 tokens are approximately equal to 150 Chinese characters.",
+                        "type": 2,
+                        "min": "1",
+                        "max": "4096",
+                        "precision": 0,
+                        "default_val": {
+                            "default_val": "4096"
+                        },
+                        "options": [],
+                        "param_class": {
+                            "class_id": 2,
+                            "label": "Input and output settings"
+                        }
+                    }
+                ]
+            },
             "gpt-3.5-turbo-0125": {
                 "display_info": {
                     "name": "GPT-3.5 Turbo 0125",

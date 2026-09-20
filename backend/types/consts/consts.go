@@ -94,6 +94,10 @@ const (
 	UseSSL      = "USE_SSL"
 	SSLCertFile = "SSL_CERT_FILE"
 	SSLKeyFile  = "SSL_KEY_FILE"
+
+	// DisableAuth skips web session login and always uses DisableAuthEmail.
+	DisableAuth      = "DISABLE_AUTH"
+	DisableAuthEmail = "DISABLE_AUTH_EMAIL"
 )
 
 const (

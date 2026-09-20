@@ -45,6 +45,7 @@ output/*
 bin/*
 
 docker/data/*
+docker/.local/
 
 backend/static
 
@@ -55,6 +56,7 @@ common/temp
 
 
 backend/conf/model/*.yaml
+!backend/conf/model/cursor_*_proxy.yaml
 values-dev.yaml
 **/conf/model_ark_doubao-seed-1.6.yaml
 

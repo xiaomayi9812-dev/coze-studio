@@ -1,0 +1,10 @@
+{
+  "name": "cursor-openai-proxy",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Phase 1 local OpenAI-compatible proxy backed by cursor-agent CLI",
+  "scripts": {
+    "start": "node server.mjs"
+  }
+}

@@ -58,7 +58,7 @@ func PassportWebEmailRegisterV2Post(ctx context.Context, c *app.RequestContext) 
 	c.SetCookie(entity.SessionKey,
 		sessionKey,
 		consts.SessionMaxAgeSecond,
-		"/", domain.GetOriginHost(c),
+		"/", domain.CookieDomain(c),
 		protocol.CookieSameSiteDefaultMode,
 		false, true)
 
@@ -107,7 +107,7 @@ func PassportWebEmailLoginPost(ctx context.Context, c *app.RequestContext) {
 	c.SetCookie(entity.SessionKey,
 		sessionKey,
 		consts.SessionMaxAgeSecond,
-		"/", domain.GetOriginHost(c),
+		"/", domain.CookieDomain(c),
 		protocol.CookieSameSiteDefaultMode,
 		false, true)
 	c.JSON(http.StatusOK, resp)

@@ -20,6 +20,7 @@ import (
 	"context"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/cloudwego/hertz/pkg/app"
 
@@ -39,6 +40,23 @@ var noNeedSessionCheckPath = map[string]bool{
 	"/api/passport/web/email/register/v2/": true,
 }
 
+func isAuthDisabled() bool {
+	switch strings.ToLower(strings.TrimSpace(os.Getenv(consts.DisableAuth))) {
+	case "1", "true", "yes", "on":
+		return true
+	default:
+		return false
+	}
+}
+
+func defaultAuthEmail() string {
+	email := strings.TrimSpace(os.Getenv(consts.DisableAuthEmail))
+	if email != "" {
+		return email
+	}
+	return "admin@local.test"
+}
+
 func SessionAuthMW() app.HandlerFunc {
 	return func(c context.Context, ctx *app.RequestContext) {
 		requestAuthType := ctx.GetInt32(RequestAuthTypeStr)
@@ -52,6 +70,16 @@ func SessionAuthMW() app.HandlerFunc {
 			return
 		}
 
+		if isAuthDisabled() {
+			if err := injectDefaultSession(c); err != nil {
+				logs.Errorf("[SessionAuthMW] inject default session failed, err: %v", err)
+				httputil.InternalError(c, ctx, err)
+				return
+			}
+			ctx.Next(c)
+			return
+		}
+
 		s := ctx.Cookie(entity.SessionKey)
 		if len(s) == 0 {
 			logs.Errorf("[SessionAuthMW] session id is nil")
@@ -59,7 +87,6 @@ func SessionAuthMW() app.HandlerFunc {
 			return
 		}
 
-		// sessionID -> sessionData
 		session, err := user.UserApplicationSVC.ValidateSession(c, string(s))
 		if err != nil {
 			logs.Errorf("[SessionAuthMW] validate session failed, err: %v", err)
@@ -73,6 +100,30 @@ func SessionAuthMW() app.HandlerFunc {
 
 		ctx.Next(c)
 	}
+}
+
+func injectDefaultSession(c context.Context) error {
+	if user.UserApplicationSVC == nil || user.UserApplicationSVC.DomainSVC == nil {
+		return errorx.New(errno.ErrUserAuthenticationFailed,
+			errorx.KV("reason", "user service is not ready"))
+	}
+
+	email := defaultAuthEmail()
+	u, err := user.UserApplicationSVC.DomainSVC.GetUserByEmail(c, email)
+	if err != nil {
+		return errorx.New(errno.ErrUserAuthenticationFailed,
+			errorx.KV("reason", "disable-auth user not found: "+email))
+	}
+
+	now := time.Now()
+	ctxcache.Store(c, consts.SessionDataKeyInCtx, &entity.Session{
+		UserID:    u.UserID,
+		Locale:    u.Locale,
+		UserEmail: u.Email,
+		CreatedAt: now,
+		ExpiresAt: now.Add(consts.DefaultSessionDuration),
+	})
+	return nil
 }
 
 func AdminAuthMW() app.HandlerFunc {

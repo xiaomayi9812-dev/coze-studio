@@ -392,6 +392,8 @@ services:
     env_file: *env_file
     # environment:
     #   LISTEN_ADDR: 0.0.0.0:8888
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     networks:
       - coze-network
     # ports:
@@ -400,6 +402,7 @@ services:
     volumes:
       - .env:/app/.env
       - ../backend/conf:/app/resources/conf
+      - ./.local/opencoze:/app/opencoze:ro
       # - ../backend/static:/app/resources/static
     depends_on:
       mysql:

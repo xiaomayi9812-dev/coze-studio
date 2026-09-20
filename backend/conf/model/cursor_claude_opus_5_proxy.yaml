@@ -1,0 +1,15 @@
+id: 69014
+name: Cursor-Claude-Opus-5-Proxy
+description:
+    zh: 本机 Cursor 代理 Claude Opus 5（Phase 1，无 Function Call）
+    en: Local Cursor proxy for Claude Opus 5 (Phase 1, no function call)
+meta:
+    protocol: openai
+    conn_config:
+        # Docker coze-server 访问宿主机代理；本机 make server 请改成 127.0.0.1
+        base_url: "http://host.docker.internal:8787/v1"
+        api_key: "local-proxy"
+        timeout: 180s
+        model: "claude-opus-5-thinking-high"
+        temperature: 0.7
+        max_tokens: 4096

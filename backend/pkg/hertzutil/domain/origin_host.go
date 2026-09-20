@@ -17,6 +17,7 @@
 package domain
 
 import (
+	"net"
 	"net/url"
 
 	"github.com/cloudwego/hertz/pkg/app"
@@ -37,9 +38,21 @@ func GetOriginHost(c *app.RequestContext) string {
 	}
 
 	host := c.Request.Header.Get(HeaderKeyOfHost)
-	if host != "" {
-		return host
+	if host == "" {
+		host = string(c.Request.URI().Host())
 	}
+	if h, _, err := net.SplitHostPort(host); err == nil {
+		return h
+	}
+	return host
+}
 
-	return string(c.Request.URI().Host())
+// CookieDomain returns a Set-Cookie Domain. IP hosts must be host-only
+// (empty Domain); browsers reject Domain attributes that include a port.
+func CookieDomain(c *app.RequestContext) string {
+	host := GetOriginHost(c)
+	if net.ParseIP(host) != nil {
+		return ""
+	}
+	return host
 }

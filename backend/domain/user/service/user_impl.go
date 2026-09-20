@@ -133,6 +133,23 @@ func (u *userImpl) ResetPassword(ctx context.Context, email, password string) (e
 	return nil
 }
 
+func (u *userImpl) GetUserByEmail(ctx context.Context, email string) (*userEntity.User, error) {
+	userModel, exist, err := u.UserRepo.GetUsersByEmail(ctx, email)
+	if err != nil {
+		return nil, err
+	}
+	if !exist {
+		return nil, errorx.New(errno.ErrUserInfoInvalidateCode)
+	}
+
+	resURL, err := u.IconOSS.GetObjectUrl(ctx, userModel.IconURI)
+	if err != nil {
+		resURL = ""
+	}
+
+	return userPo2Do(userModel, resURL), nil
+}
+
 func (u *userImpl) GetUserInfo(ctx context.Context, userID int64) (resp *userEntity.User, err error) {
 	if userID <= 0 {
 		return nil, errorx.New(errno.ErrUserInvalidParamCode,
